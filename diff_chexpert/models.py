@@ -46,39 +46,6 @@ class DotAttention(nn.Module):
 
         return y_hat
 
-class LSTM_Attn(nn.Module):
-    def __init__(self, embed_weight, emb_dim, hidden_size, num_classes=14):
-
-        super(LSTM_Attn, self).__init__()
-
-        self.embed = nn.Embedding.from_pretrained(torch.from_numpy(embed_weight), freeze=True)
-
-        self.rnn = nn.LSTM(input_size=emb_dim, hidden_size=hidden_size, batch_first=True, bidirectional=True)
-
-        self.attns = nn.ModuleList([TanhAttention(hidden_size*2) for i in range(num_classes)])
-
-    def generate_pad_mask(self, batch_size, max_len, caption_lengths):
-
-        mask = torch.full((batch_size, max_len), fill_value=float('-inf'), dtype=torch.float, device='cuda')
-        for ind, cap_len in enumerate(caption_lengths):
-            mask[ind][:cap_len] = 0
-
-        return mask
-
-    def forward(self, encoded_captions, caption_lengths):
-        x = self.embed(encoded_captions)
-
-        batch_size = encoded_captions.size(0)
-        max_len = encoded_captions.size(1)
-        padding_mask = self.generate_pad_mask(batch_size, max_len, caption_lengths)
-
-        output, (_, _) = self.rnn(x)
-
-        y_hats = [attn(output, padding_mask) for attn in self.attns]
-        y_hats = torch.stack(y_hats, dim=1)
-
-        return y_hats
-
 
 class LSTM_Attn(nn.Module):
     def __init__(self, embed_weight, emb_dim, hidden_size, num_classes=14):
