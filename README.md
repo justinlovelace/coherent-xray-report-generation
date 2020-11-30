@@ -2,6 +2,7 @@
 This contains the code for the paper "Learning to Generate Clinically Coherent Chest X-Ray Reports" published in the Findings of EMNLP 2020. Unfortunately the dataset that we worked on is not publicly available, but we release our modeling code so that people can more directly build on or repurpose our methods.
 
 
+
 If you find our work or our code helpful in your work then please cite our paper.
 
 ```
@@ -25,7 +26,7 @@ If you find our work or our code helpful in your work then please cite our paper
 We built upon code released in the following repos:
 
 - https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning
-
 - https://github.com/fawazsammani/knowing-when-to-look-adaptive-attention
+- https://github.com/wboag/cxr-baselines
 
 Our implementation of the Gumbel Softmax trick was adapted from https://gist.github.com/yzh119/fd2146d2aeb329d067568a493b20172f
