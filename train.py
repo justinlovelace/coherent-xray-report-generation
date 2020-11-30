@@ -5,7 +5,8 @@ import torch.optim
 import torch.utils.data
 from torch.nn.utils.rnn import pack_padded_sequence
 from torch import nn
-from models import TransformerModel, TransformerGumbelModel, LSTM_Attn
+from models import TransformerModel, TransformerGumbelModel
+from diff_chexpert.models import LSTM_Attn
 from dataset import *
 from utils import *
 from nltk.translate.bleu_score import corpus_bleu
